@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.primary-button{
+    @apply bg-[#201d1d] rounded-2xl py-4 items-center
+}
+
+.secondary-button{
+    @apply bg-white/20 border-2 border-white rounded-2xl py-4 items-centes
+}

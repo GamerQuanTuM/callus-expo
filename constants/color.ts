@@ -1,0 +1,1 @@
+export const PRIMARY_BG = "#f97316"

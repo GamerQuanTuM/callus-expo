@@ -1,0 +1,29 @@
+name: Update Leaderboard
+on:
+  schedule:
+    - cron: '0 */1 * * *'
+
+jobs:
+  update-leaderboard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Leaderboard via Edge Function
+        run: |
+          response=$(curl -s -w "\n%{http_code}" -X POST \
+            "https://${{ secrets.SUPABASE_PROJECT_REF }}.supabase.co/functions/v1/update-leaderboard" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{}')
+          
+          # Extract status code and body
+          http_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | head -n1)
+          
+          echo "Response: $body"
+          echo "Status Code: $http_code"
+          
+          # Fail the job if the request wasn't successful
+          if [ "$http_code" -ne 200 ]; then
+            echo "Error: Request failed with status $http_code"
+            exit 1
+          fi
