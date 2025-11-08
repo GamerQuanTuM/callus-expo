@@ -10,8 +10,8 @@ jobs:
       - name: Update Leaderboard via Edge Function
         run: |
           response=$(curl -s -w "\n%{http_code}" -X POST \
-            "https://${{ secrets.SUPABASE_PROJECT_REF }}.supabase.co/functions/v1/update-leaderboard" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
+            "https://${{ secrets.EXPO_PUBLIC_PROJECT_REF }}.supabase.co/functions/v1/update-leaderboard" \
+            -H "Authorization: Bearer ${{ secrets.EXPO_PUBLIC_SERVICE_ROLE_KEY }}" \
             -H "Content-Type: application/json" \
             -d '{}')
           
